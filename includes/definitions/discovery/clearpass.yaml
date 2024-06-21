@@ -1,5 +1,54 @@
+mib: CPPM-MIB:UCD-SNMP-MIB
 modules:
-  os:
-    hardware: .1.3.6.1.4.1.14823.1.6.1.1.1.1.1.1.0
-    serial: .1.3.6.1.4.1.14823.1.6.1.1.1.1.1.2.0
-    version: .1.3.6.1.4.1.14823.1.6.1.1.1.1.1.3.0
+    os:
+        hardware: .1.3.6.1.4.1.14823.1.6.1.1.1.1.1.1.0
+        serial: .1.3.6.1.4.1.14823.1.6.1.1.1.1.1.2.0
+        version: .1.3.6.1.4.1.14823.1.6.1.1.1.1.1.3.0
+    sensors:
+        count:
+            data:
+                -
+                    oid: cppmNumClusterNodes 
+                    num_oid: '.1.3.6.1.4.1.14823.1.6.1.1.1.1.1.7.{{ $index }}'
+                    index: 'cppmNumClusterNodes.{{ $index }}'
+                    descr: Cluster Nodes
+                    group: Cluster Info
+                -
+                    oid: radiusServerAuthTable
+                    value: radAuthCounterSuccess
+                    num_oid: '.1.3.6.1.4.1.14823.1.6.1.1.2.2.1.3.{{ $index }}'
+                    index: 'radAuthCounterSuccess.{{ $index }}'
+                    descr: Success '{{ $radAuthSourceName }}'
+                    group: Authentication		
+                -
+                    oid: radiusServerAuthTable
+                    value: radAuthCounterFailure
+                    num_oid: '.1.3.6.1.4.1.14823.1.6.1.1.2.2.1.4.{{ $index }}'
+                    index: 'radAuthCounterFailure.{{ $index }}'
+                    descr: Failure '{{ $radAuthSourceName }}''
+                    group: Authentication		
+                -
+                    oid: radiusServerAuthTable
+                    value: radAuthCounterCount
+                    num_oid: '.1.3.6.1.4.1.14823.1.6.1.1.2.2.1.5.{{ $index }}'
+                    index: 'radAuthCounterCount.{{ $index }}'
+                    descr: Count '{{ $radAuthSourceName }}'
+                    group: Authentication
+                -
+                    oid: radiusServerAuthTable
+                    value: radAuthCounterTime
+                    num_oid: '.1.3.6.1.4.1.14823.1.6.1.1.2.2.1.6.{{ $index }}'
+                    index: 'radAuthCounterTime.{{ $index }}'
+                    descr: Time '{{ $radAuthSourceName }}'
+                    group: Authentication					
+        state:
+            data:
+                -                    
+                    oid: extTable
+                    value: extResult
+                    num_oid: '.1.3.6.1.4.1.2021.8.1.100.{{ $index }}'
+                    index: 'enterprises.2021.8.1.1.{{ $index }}'
+                    descr: '{{ $extNames }}'
+                    states:
+                        - { value: 0, generic: 0, graph: 0, descr: Running }
+                        - { value: 3, generic: 2, graph: 0, descr: Stopped }

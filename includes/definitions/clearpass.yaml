@@ -1,3 +1,4 @@
+mib_dir: arubaos
 os: clearpass
 text: 'Aruba Clearpass'
 type: appliance
